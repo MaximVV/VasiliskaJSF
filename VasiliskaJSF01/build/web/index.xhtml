@@ -1,12 +1,40 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>#{msg.welcome_title}</title>
+        <h:outputStylesheet library="css" name="style_index.css"  />
     </h:head>
     <h:body>
-        Hello from Facelets
+
+        <div class="main">
+
+            <div class="content">
+                <p class="title"><h:graphicImage library="images" name="cat_3.png" /></p>
+                <p class="title">#{msg.index_title}</p>
+            </div>
+
+            <div class="login_div">
+                <p class="title">#{msg.input_info}</p>
+
+                <h:form styleClass="login_form">
+                    #{msg.input_name} <h:inputText id="username" value="#{user.username}" required="true" requiredMessage="#{msg.login_required}">
+                        <f:validator validatorId="com.vasiliskavrn.shop.web.validators.LoginValidator"/>
+                    </h:inputText>
+                    <h:commandButton action="pages/goods?faces-redirect=true" value="Войти"/>
+                    <p><h:message for="username" styleClass="error"/></p>
+                </h:form>
+
+            </div>
+
+            <div class="footer">
+                #{msg.author_info}
+            </div>
+        </div>
+
     </h:body>
 </html>
 
+               
