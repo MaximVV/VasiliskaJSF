@@ -38,7 +38,7 @@ body {
     border: 1px solid #eaeaea;
     margin: 0 auto;
     padding:10px;
-
+    height: 150px;
 }
 
 .footer{
@@ -52,4 +52,11 @@ body {
 .content{
     height:200px;
 
+}
+
+.error{
+    color:#ff0000;
+    font-style: italic;
+    font-size: 12px;
+    
 }
