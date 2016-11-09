@@ -1,4 +1,4 @@
-package com.vasiliskavrn.shop.web.beans.controllers;
+package com.vasiliskavrn.shop.web.controllers;
 
 
 import javax.faces.bean.ManagedBean;
