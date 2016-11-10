@@ -238,7 +238,8 @@ public class SearchController implements Serializable {
             conn = Database.getConnection();
             stmt = conn.createStatement();
 
-            rs = stmt.executeQuery("select image_cotnent from vasiliska2016.image_tab where id_image_tab=" + id);
+            rs = stmt.executeQuery(" select i.image_cotnent FROM vasiliska2016.goods_tab g, vasiliska2016.image_tab  i "
+                                    + "WHERE g.goods_image = i.id_image_tab and g.goods_id=" + id);
             while (rs.next()) {
                 image = rs.getBytes("image_cotnent");
             }
