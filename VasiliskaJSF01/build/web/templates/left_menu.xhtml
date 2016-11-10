@@ -17,10 +17,10 @@
             <h:form styleClass="genres">
                 <ui:repeat value="#{clothController.clothList}" var="g">
 
+                    
+                    <h:commandLink action="#{searchController.fillGoodsByCloth()}" value="#{g.name}" styleClass="#{g.id == searchController.selectedClothId ? 'selected_link':''}">
 
-                    <h:commandLink action="#{searchController.fillGoodsByCloth()}" value="#{g.name}">
-
-                        <f:param name="cloth_id" value="#{g.id}" />
+                         <f:param name="cloth_id" value="#{g.id}" />
 
                     </h:commandLink>
 

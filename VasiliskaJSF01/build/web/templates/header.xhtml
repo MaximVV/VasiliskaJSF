@@ -45,10 +45,11 @@
                 <h:form>
                     <ui:repeat value="#{searchController.russianLetters}" var="letter">
 
+            
+                        
+                        <h:commandLink action="#{searchController.fillGoodsByLetter()}" value="#{letter}" styleClass="#{letter == searchController.selectedLetter ? 'selected_letter':''}">
 
-                        <h:commandLink action="#{searchController.fillGoodsByLetter()}" value="#{letter}">
-
-                            <f:param name="letter" value="#{letter}" />
+                             <f:param name="letter" value="#{letter}" />
 
                         </h:commandLink>
 

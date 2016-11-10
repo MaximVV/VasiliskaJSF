@@ -3,8 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/PO/VasiliskaProject/VasiliskaGIT_JSF/VasiliskaJSF01/web/templates/left_menu.xhtml</file>
-            <file>file:/G:/PO/VasiliskaProject/VasiliskaGIT_JSF/VasiliskaJSF01/src/java/com/vasiliskavrn/shop/web/controllers/LoginController.java</file>
+            <file>file:/D:/_prog/VasiliskaJSF003/VasiliskaJSF01/web/templates/left_menu.xhtml</file>
+            <file>file:/D:/_prog/VasiliskaJSF003/VasiliskaJSF01/src/java/com/vasiliskavrn/shop/web/nls/messages.properties</file>
+            <file>file:/D:/_prog/VasiliskaJSF003/VasiliskaJSF01/web/pages/goods.xhtml</file>
+            <file>file:/D:/_prog/VasiliskaJSF003/VasiliskaJSF01/web/resources/css/style_main.css</file>
+            <file>file:/D:/_prog/VasiliskaJSF003/VasiliskaJSF01/src/java/com/vasiliskavrn/shop/web/beans/Goods.java</file>
+            <file>file:/D:/_prog/VasiliskaJSF003/VasiliskaJSF01/src/java/com/vasiliskavrn/shop/web/controllers/ClothController.java</file>
+            <file>file:/D:/_prog/VasiliskaJSF003/VasiliskaJSF01/src/java/com/vasiliskavrn/shop/web/controllers/LoginController.java</file>
+            <file>file:/D:/_prog/VasiliskaJSF003/VasiliskaJSF01/src/java/com/vasiliskavrn/shop/web/beans/Cloths.java</file>
+            <file>file:/D:/_prog/VasiliskaJSF003/VasiliskaJSF01/src/java/com/vasiliskavrn/shop/web/controllers/SearchController.java</file>
+            <file>file:/D:/_prog/VasiliskaJSF003/VasiliskaJSF01/src/java/com/vasiliskavrn/shop/web/beans/Cloth.java</file>
         </group>
     </open-files>
 </project-private>

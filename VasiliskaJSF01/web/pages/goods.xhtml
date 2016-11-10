@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+          
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <h:head>
         <title>Facelet Title</title>
@@ -20,14 +21,13 @@
                 <p><strong>#{msg.goods_count} #{searchController.currentGoodsList.size()}</strong></p>
 
                 <h:dataTable value="#{searchController.currentGoodsList}" var="b" cellspacing="10px" columnClasses="col1, col2, col3"> 
-
+                                    
                     <h:column>
-                        
-                        <h:graphicImage  value="/ShowImage?id=#{b.id}" width="120" height="160"/>
-<!--                        <h:graphicImage  value="../resources/images/cat.png" width="120" height="160"/>-->
+                        <h:outputLink value="" target="_blank">
+                            <!--#{request.contextPath}/PdfContent?id=#{b.id}-->
+                            <h:graphicImage  value="/ShowImage?id=#{b.id}" width="160" height="220"/>
+                        </h:outputLink>
                     </h:column>
-
-                    
                     
                     <h:column>
 
@@ -39,10 +39,7 @@
 
                         </div>
 
-                    </h:column>
-
-
-                  
+                    </h:column>                  
 
                     <h:column>
                         <div class="book_details">
@@ -50,11 +47,27 @@
                            <p >#{b.countryBrand}</p>
                         </div>
                     </h:column>
-
-
-
+                    
+                    
                 </h:dataTable>
+                    
             </ui:define>
+            
+            <ui:define name="paginator">
+                        
+                     <h:form rendered="#{searchController.totalGoodsCount>searchController.goodsOnPage}">
+                            #{msg.pager}
+
+                            <ui:repeat value="#{searchController.pageNumbers}" var="pageNumber" >
+                                <h:commandLink value="#{pageNumber}" action="#{searchController.selectPage()}"  styleClass="#{pageNumber == searchController.selectedPageNumber ? 'selected_page':''}">
+                                    <f:param name="page_number" value="#{pageNumber}" />
+                                </h:commandLink>
+                            </ui:repeat>
+                    </h:form>
+
+
+            </ui:define>             
+            
 
         </ui:composition>
     </h:body>
