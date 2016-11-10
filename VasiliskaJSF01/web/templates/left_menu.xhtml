@@ -13,16 +13,19 @@
             
             <h4>#{msg.cloth}</h4>
          
-                
-            <h:dataTable value="#{cloths.clothList}" var="g" styleClass="genres">
+            
+            <h:form styleClass="genres">
+                <ui:repeat value="#{clothController.clothList}" var="g">
 
-                    <h:column>
-                        <h:link value="#{g.name}">
-                            <f:param name="cloth_id" value="#{g.id}" />
-                        </h:link>
-                    </h:column>
 
-                </h:dataTable>
+                    <h:commandLink action="#{searchController.fillGoodsByCloth()}" value="#{g.name}">
+
+                        <f:param name="cloth_id" value="#{g.id}" />
+
+                    </h:commandLink>
+
+                </ui:repeat>
+            </h:form>      
                 
            
         </ui:composition>
