@@ -22,10 +22,19 @@ import com.vasiliskavrn.shop.web.enums.SearchType;
 @SessionScoped
 public class SearchController implements Serializable {
 
+    private boolean requestFromPager;
+    private int selectedClothId; // выбранный раздел одежды
+    private char selectedLetter; // выбранная буква алфавита
+    private int goodsOnPage = 2;    
     private SearchType searchType;// хранит выбранный тип поиска
     private String searchString; // хранит поисковую строку
+    private long selectedPageNumber = 1; // выбранный номер страницы в постраничной навигации
     private static Map<String, SearchType> searchList = new HashMap<String, SearchType>();
     private ArrayList<Goods> currentGoodsList; // текущий список книг для отображения
+    private ArrayList<Integer> pageNumbers = new ArrayList<Integer>(); // общее кол-во книг (не на текущей странице, а всего), нажно для постраничности
+    private long totalGoodsCount; // общее кол-во книг (не на текущей странице, а всего), нажно для постраничности
+    private String currentSql;// последний выполнный sql без добавления limit
+    
     public final String DEFAULT_SQL = "SELECT g.goods_id,g.goods_art,\n" +
 "	   ct.cloth_name_one,\n" +
 "       s.sex_name,\n" +
@@ -64,6 +73,9 @@ public class SearchController implements Serializable {
     
 
     public SearchController() {
+        
+         fillGoodsAll();
+        
         ResourceBundle bundle = ResourceBundle.getBundle("com.vasiliskavrn.shop.web.nls.messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
         searchList.put(bundle.getString("for_all"), SearchType.FOR_ALL);
         searchList.put(bundle.getString("for_boy"), SearchType.FOR_BOY);
@@ -78,13 +90,35 @@ public class SearchController implements Serializable {
     
     private void fillGoodsBySQL(String sql) {
 
+        
+        StringBuilder sqlBuilder = new StringBuilder(sql);
+        currentSql = sql;
+        
         Statement stmt = null;
         ResultSet rs = null;
         Connection conn = null;
+                     
 
         try {
+            
             conn = Database.getConnection();
             stmt = conn.createStatement();
+
+            System.out.println(requestFromPager);
+            if (!requestFromPager) {
+
+                rs = stmt.executeQuery(sqlBuilder.toString());
+                rs.last();
+
+                totalGoodsCount = rs.getRow();
+                fillPageNumbers(totalGoodsCount, goodsOnPage);
+            
+            }
+            
+            
+            if (totalGoodsCount > goodsOnPage) {
+                sqlBuilder.append(" limit ").append(selectedPageNumber * goodsOnPage - goodsOnPage).append(",").append(goodsOnPage);
+            }
 
             rs = stmt.executeQuery(sql);
 
@@ -133,36 +167,56 @@ public class SearchController implements Serializable {
              sql.append(" order by ct.cloth_name_one  limit 0,5");
              fillGoodsBySQL(sql.toString()); 
     }
+    
+    
+    private void submitValues(Character selectedLetter, long selectedPageNumber, int selectedGenreId, boolean requestFromPager) {
+        this.selectedLetter = selectedLetter;
+        this.selectedPageNumber = selectedPageNumber;
+        this.selectedClothId = selectedGenreId;
+        this.requestFromPager = requestFromPager;
+      }
 
-    public void fillGoodsByCloth() {
+    public String fillGoodsByCloth() {
 
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        Integer cloth_id = Integer.valueOf(params.get("cloth_id"));
+        
+        submitValues(' ', 1, Integer.valueOf(params.get("cloth_id")), false);
+        
+//        Integer cloth_id = Integer.valueOf(params.get("cloth_id"));
         
         StringBuilder sql = new StringBuilder(DEFAULT_SQL);
-        sql.append("   and ct.id_cloth_tab = "+ cloth_id + " order by ct.cloth_name_one ");
+        sql.append("   and ct.id_cloth_tab = "+ selectedClothId + " order by ct.cloth_name_one ");
         sql.append(" limit 0,5");             
         System.out.println(sql.toString());
         fillGoodsBySQL(sql.toString());
+        
+        return "goods";
     }
 
-    public void fillGoodsByLetter() {
+    public String fillGoodsByLetter() {
 
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String searchLetter = params.get("letter");
+//        String searchLetter = params.get("letter");
+        selectedLetter = params.get("letter").charAt(0);
+
+        submitValues(selectedLetter, 1, -1, false);
         
         StringBuilder sql = new StringBuilder(DEFAULT_SQL);
-        sql.append(" and substr(ct.cloth_name_one,1,1)='"+ searchLetter + "' order by ct.cloth_name_one ");
-        sql.append(" limit 0,5");             
+        sql.append(" and substr(ct.cloth_name_one,1,1)='"+ selectedLetter + "' order by ct.cloth_name_one ");
+//        sql.append(" limit 0,5");             
         System.out.println(sql.toString());
         fillGoodsBySQL(sql.toString());
+        
+        return "goods";
     }
 
-    public void fillGoodsBySearch() {
+    public String  fillGoodsBySearch() {
+        
+        submitValues(' ', 1, -1, false);
 
         if (searchString.trim().length() == 0) {
             fillGoodsAll();
-            return;
+            return "goods";
         }
 
         StringBuilder sql = new StringBuilder(DEFAULT_SQL);                   
@@ -182,50 +236,21 @@ public class SearchController implements Serializable {
         else if (searchType == SearchType.FOR_ALL) {
             sql.append(" and lower(ct.cloth_name_one) like '%" + searchString.toLowerCase().substring(0, 4) + "%' order by ct.cloth_name_one  " );
         }
-        sql.append(" limit 0,5");
+//        sql.append(" limit 0,5");
 
         System.out.println(sql.toString());         
-        fillGoodsBySQL(sql.toString()); 
+        fillGoodsBySQL(sql.toString());
+        
+        return "goods";        
     }
-
-//    public byte[] getContent(int id) {
-//        Statement stmt = null;
-//        ResultSet rs = null;
-//        Connection conn = null;
-//
-//
-//        byte[] content = null;
-//        try {
-//            conn = Database.getConnection();
-//            stmt = conn.createStatement();
-//
-//            rs = stmt.executeQuery("select content from book where id=" + id);
-//            while (rs.next()) {
-//                content = rs.getBytes("content");
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Goods.class
-//                    .getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            try {
-//                if (stmt != null) {
-//                    stmt.close();
-//                }
-//                if (rs != null) {
-//                    rs.close();
-//                }
-//                if (conn != null) {
-//                    conn.close();
-//                }
-//            } catch (SQLException ex) {
-//                Logger.getLogger(Goods.class
-//                        .getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//
-//        return content;
-//
-//    }
+     
+    
+    public void selectPage() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        selectedPageNumber = Integer.valueOf(params.get("page_number"));
+        requestFromPager = true;
+        fillGoodsBySQL(currentSql);
+    }
 
     public byte[] getImage(int id) {
         Statement stmt = null;
@@ -305,6 +330,26 @@ public class SearchController implements Serializable {
 
         return letters;
     }
+    
+    
+    private void fillPageNumbers(long totalClothCount, int clothCountOnPage) {
+
+        int pageCount = clothCountOnPage > 0 ? (int) ((totalClothCount / clothCountOnPage) + 1) : 0;
+
+        pageNumbers.clear();
+        for (int i = 1; i <= pageCount; i++) {
+            pageNumbers.add(i);
+        }
+
+    }
+    
+    public ArrayList<Integer> getPageNumbers() {
+        return pageNumbers;
+    }
+
+    public void setPageNumbers(ArrayList<Integer> pageNumbers) {
+        this.pageNumbers = pageNumbers;
+    }   
 
     public String getSearchString() {
         return searchString;
@@ -328,7 +373,49 @@ public class SearchController implements Serializable {
 
     public ArrayList<Goods> getCurrentGoodsList() {
         return currentGoodsList;
-    }   
+    } 
+    
+    public void setTotalGoodsCount(long goodsCount) {
+        this.totalGoodsCount = goodsCount;
+    }
+
+    public long getTotalGoodsCount() {
+        return totalGoodsCount;
+    }    
+
+    public int getSelectedClothId() {
+        return selectedClothId;
+    }
+
+    public void setSelectedClothId(int selectedClothId) {
+        this.selectedClothId = selectedClothId;
+    }
+
+    public char getSelectedLetter() {
+        return selectedLetter;
+    }
+
+    public void setSelectedLetter(char selectedLetter) {
+        this.selectedLetter = selectedLetter;
+    }    
+    
+    public int getGoodsOnPage() {
+        return goodsOnPage;
+    }
+
+    public void setGoodsOnPage(int goodsOnPage) {
+        this.goodsOnPage = goodsOnPage;
+    }
+
+    public void setSelectedPageNumber(long selectedPageNumber) {
+        this.selectedPageNumber = selectedPageNumber;
+    }
+
+    public long getSelectedPageNumber() {
+        return selectedPageNumber;
+    }
+    
+
     
     
     

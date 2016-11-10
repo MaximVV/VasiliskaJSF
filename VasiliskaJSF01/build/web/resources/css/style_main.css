@@ -76,6 +76,11 @@ a:hover, a:active, a:focus {
     float: left;
 }
 
+.content_books{
+    margin-top:30px;
+    float:left;
+}
+
 
 
 .genres a:hover, a:active, a:focus {
@@ -88,7 +93,11 @@ a:hover, a:active, a:focus {
     display: block; 
     text-decoration: none;
     color: #000;
-    
+
+}
+
+.genres a.selected_link{
+    color:red;
 }
 
 
@@ -196,6 +205,14 @@ a:hover, a:active, a:focus {
     width: 100px;
 }
 
+.col2 a.content_link{
+    color:red;
+    font-size: 11px;
+    text-decoration: underline;
+    margin-left: 5px;
+    font-weight: bold
+}
+
 .col2{
     vertical-align: top;
     width: 240px;
@@ -264,6 +281,10 @@ a:hover, a:active, a:focus {
     color:#4d6cd3;
 }
 
+.letters a.selected_letter{
+    color:red;
+}
+
 .pdf_viewer{
     margin: 0 auto;
     width:850px;
@@ -278,3 +299,16 @@ a:hover, a:active, a:focus {
     margin:3px;
 }
 
+.pager a{
+    margin-left: 5px;
+    margin-top: 50px;
+}
+
+.pager{
+    margin-left: 15px;
+    width: 100%;
+    float:left;
+}
+.pager .selected_page{
+    color:red;
+}
