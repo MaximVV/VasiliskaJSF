@@ -26,7 +26,7 @@ public class SearchController implements Serializable {
     private String searchString; // хранит поисковую строку
     private static Map<String, SearchType> searchList = new HashMap<String, SearchType>();
     private ArrayList<Goods> currentGoodsList; // текущий список книг для отображения
-    public final String DEFULT_SQL = "SELECT g.goods_id,g.goods_art,\n" +
+    public final String DEFAULT_SQL = "SELECT g.goods_id,g.goods_art,\n" +
 "	   ct.cloth_name_one,\n" +
 "       s.sex_name,\n" +
 "       pr.prod_country,\n" +
@@ -103,7 +103,7 @@ public class SearchController implements Serializable {
                 goods.setSize(rs.getString("size_name"));
                 goods.setComposition(rs.getString("comp_name"));
                 goods.setCountryBrand(rs.getString("brand_country"));
-                goods.setImage(rs.getBytes("image_cotnent"));
+//                goods.setImage(rs.getBytes("image_cotnent"));
                 currentGoodsList.add(goods);
             }
 
@@ -129,7 +129,7 @@ public class SearchController implements Serializable {
 
     private void fillGoodsAll() {
         
-        StringBuilder sql = new StringBuilder(DEFULT_SQL);
+        StringBuilder sql = new StringBuilder(DEFAULT_SQL);
              sql.append(" order by ct.cloth_name_one  limit 0,5");
              fillGoodsBySQL(sql.toString()); 
     }
@@ -139,7 +139,7 @@ public class SearchController implements Serializable {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Integer cloth_id = Integer.valueOf(params.get("cloth_id"));
         
-        StringBuilder sql = new StringBuilder(DEFULT_SQL);
+        StringBuilder sql = new StringBuilder(DEFAULT_SQL);
         sql.append("   and ct.id_cloth_tab = "+ cloth_id + " order by ct.cloth_name_one ");
         sql.append(" limit 0,5");             
         System.out.println(sql.toString());
@@ -151,7 +151,7 @@ public class SearchController implements Serializable {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String searchLetter = params.get("letter");
         
-        StringBuilder sql = new StringBuilder(DEFULT_SQL);
+        StringBuilder sql = new StringBuilder(DEFAULT_SQL);
         sql.append(" and substr(ct.cloth_name_one,1,1)='"+ searchLetter + "' order by ct.cloth_name_one ");
         sql.append(" limit 0,5");             
         System.out.println(sql.toString());
@@ -165,7 +165,7 @@ public class SearchController implements Serializable {
             return;
         }
 
-        StringBuilder sql = new StringBuilder(DEFULT_SQL);                   
+        StringBuilder sql = new StringBuilder(DEFAULT_SQL);                   
 
         if (searchType == SearchType.FOR_BOY) {
             sql.append(" and s.sex_name='Мальчики' and lower(ct.cloth_name_one) like '%" + searchString.toLowerCase().substring(0, 4) + "%' order by ct.cloth_name_one  " );
