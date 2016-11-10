@@ -53,12 +53,15 @@ a:hover, a:active, a:focus {
     text-align: center;
     margin:5px;
     height: 50px;
+    float:left;
+    width: 100%;
 }
 
 
 .middle {
     background-color: #FFFFFF;
     width: 100%;
+    float:left;
 }
 
 .left_menu {
@@ -118,7 +121,7 @@ a:hover, a:active, a:focus {
 
 .descr{
     float: left;
-    width: 600px;
+    width: 500px;
     text-align: left;
     padding-top: 50px;
 }
@@ -128,6 +131,11 @@ a:hover, a:active, a:focus {
     padding-top: 50px;
     font-weight: normal;
     float:right;
+}
+
+.welcome a{
+    margin-right: 15px;
+    font-size: 10px;
 }
 
 .search_button {
@@ -183,6 +191,35 @@ a:hover, a:active, a:focus {
     float:left;
 }
 
+.col1{
+    vertical-align: top;
+    width: 100px;
+}
+
+.col2{
+    vertical-align: top;
+    width: 240px;
+}
+
+.col2 a{
+    font-weight: bold;
+    color:#378de5;
+    font-size: 15px;
+}
+
+.col2 p{
+    font-size: 11px;
+}
+
+.col3{
+    vertical-align: top;
+    width: 350px;
+}
+
+.book_details p{
+    font-size: 11px;
+}
+
 .book_title a{
     color:#378de5 ;
     font-weight: bold; 
@@ -215,12 +252,16 @@ a:hover, a:active, a:focus {
     float:left;
     height: 20px;
     margin: 10px;
+    width: 100%;
+    text-align: center;
 }
 
 .letters a{
     text-decoration: none;
     font-size: 15px;
     font-weight: bold;
+    margin:5px;
+    color:#4d6cd3;
 }
 
 .pdf_viewer{
@@ -236,3 +277,4 @@ a:hover, a:active, a:focus {
     padding: 3px;
     margin:3px;
 }
+
