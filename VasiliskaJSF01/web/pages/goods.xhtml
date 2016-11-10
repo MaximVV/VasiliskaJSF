@@ -4,6 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >
+    
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -16,7 +17,43 @@
             </ui:define>
 
             <ui:define name="content">
-                #{param.cloth_id}
+                <p><strong>#{msg.goods_count} #{searchController.currentGoodsList.size()}</strong></p>
+
+                <h:dataTable value="#{searchController.currentGoodsList}" var="b" cellspacing="10px" columnClasses="col1, col2, col3"> 
+
+                    <h:column>
+                        
+                        <h:graphicImage  value="/ShowImage?id=#{b.id}" width="120" height="160"/>
+<!--                        <h:graphicImage  value="../resources/images/cat.png" width="120" height="160"/>-->
+                    </h:column>
+
+                    
+                    
+                    <h:column>
+
+                        <div>
+                            <p> <a href="#">#{b.name}</a></p>
+                            <!--<p><strong>#{msg.goods_country}: </strong>#{b.name}</p>-->                           
+                            <p><strong>#{msg.goods_firme}:</strong> #{b.firme} </p>
+                            <p><strong>#{msg.price}</strong> #{b.price}</p>
+
+                        </div>
+
+                    </h:column>
+
+
+                  
+
+                    <h:column>
+                        <div class="book_details">
+                           <p><strong>#{msg.descr}</strong></p>
+                           <p >#{b.countryBrand}</p>
+                        </div>
+                    </h:column>
+
+
+
+                </h:dataTable>
             </ui:define>
 
         </ui:composition>
