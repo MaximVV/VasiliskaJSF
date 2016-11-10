@@ -25,9 +25,25 @@
                 </div>
 
                 <div class="content">
-                    <ui:insert name="content">
-                        <ui:include src="/templates/content.xhtml"/>
-                    </ui:insert>                 
+                    
+                    
+                    <p><strong><ui:insert name="goods_count"/></strong></p>
+
+                    <div class="pager">
+                        <ui:insert name="paginator"/>
+                    </div>
+
+                    <div class="content_books">
+                        <ui:insert name="content">
+                            <ui:include src="/templates/content.xhtml"/>
+                        </ui:insert>    
+                    </div>
+                    
+                    <div class="pager">
+                        <ui:insert name="paginator"/>
+
+                    </div>                     
+                              
                 </div>
 
                 <div style="clear: both;">&nbsp;</div>
