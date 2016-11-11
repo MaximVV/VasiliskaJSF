@@ -12,19 +12,24 @@
     <h:body>
         <ui:composition template="/templates/shop_template.xhtml">
 
+            
+            <ui:define name="books_count">
+                #{msg.goods_count} #{searchController.totalGoodsCount}
+            </ui:define>           
+            
 
             <ui:define name="title">
                 #{msg.cloth_list}
             </ui:define>
 
             <ui:define name="content">
-                <p><strong>#{msg.goods_count} #{searchController.currentGoodsList.size()}</strong></p>
+
 
                 <h:dataTable value="#{searchController.currentGoodsList}" var="b" cellspacing="10px" columnClasses="col1, col2, col3"> 
                                     
                     <h:column>
                         <h:outputLink value="" target="_blank">
-                            <!--#{request.contextPath}/PdfContent?id=#{b.id}-->
+                           
                             <h:graphicImage  value="/ShowImage?id=#{b.id}" width="160" height="220"/>
                         </h:outputLink>
                     </h:column>
@@ -53,9 +58,10 @@
                     
             </ui:define>
             
+            
             <ui:define name="paginator">
                         
-                     <h:form rendered="#{searchController.totalGoodsCount>searchController.goodsOnPage}">
+                     <h:form rendered="#{searchController.totalGoodsCount > searchController.goodsOnPage}">
                             #{msg.pager}
 
                             <ui:repeat value="#{searchController.pageNumbers}" var="pageNumber" >

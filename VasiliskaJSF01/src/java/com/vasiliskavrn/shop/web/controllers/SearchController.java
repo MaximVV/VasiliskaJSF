@@ -120,7 +120,8 @@ public class SearchController implements Serializable {
                 sqlBuilder.append(" limit ").append(selectedPageNumber * goodsOnPage - goodsOnPage).append(",").append(goodsOnPage);
             }
 
-            rs = stmt.executeQuery(sql);
+            System.out.println(sqlBuilder.toString());
+            rs = stmt.executeQuery(sqlBuilder.toString());
 
             currentGoodsList = new ArrayList<Goods>();
 
@@ -164,7 +165,7 @@ public class SearchController implements Serializable {
     private void fillGoodsAll() {
         
         StringBuilder sql = new StringBuilder(DEFAULT_SQL);
-             sql.append(" order by ct.cloth_name_one  limit 0,5");
+             sql.append(" order by ct.cloth_name_one ");
              fillGoodsBySQL(sql.toString()); 
     }
     
@@ -186,7 +187,6 @@ public class SearchController implements Serializable {
         
         StringBuilder sql = new StringBuilder(DEFAULT_SQL);
         sql.append("   and ct.id_cloth_tab = "+ selectedClothId + " order by ct.cloth_name_one ");
-        sql.append(" limit 0,5");             
         System.out.println(sql.toString());
         fillGoodsBySQL(sql.toString());
         
@@ -203,7 +203,6 @@ public class SearchController implements Serializable {
         
         StringBuilder sql = new StringBuilder(DEFAULT_SQL);
         sql.append(" and substr(ct.cloth_name_one,1,1)='"+ selectedLetter + "' order by ct.cloth_name_one ");
-//        sql.append(" limit 0,5");             
         System.out.println(sql.toString());
         fillGoodsBySQL(sql.toString());
         
@@ -236,7 +235,7 @@ public class SearchController implements Serializable {
         else if (searchType == SearchType.FOR_ALL) {
             sql.append(" and lower(ct.cloth_name_one) like '%" + searchString.toLowerCase().substring(0, 4) + "%' order by ct.cloth_name_one  " );
         }
-//        sql.append(" limit 0,5");
+
 
         System.out.println(sql.toString());         
         fillGoodsBySQL(sql.toString());
