@@ -43,22 +43,21 @@
             </div>
             
             <div class="letters">
+                
                 <h:form id="lettersForm">
                     <ui:repeat value="#{searchController.russianLetters}" var="letter">
 
             
                         
-                        <h:commandLink action="#{searchController.fillGoodsByLetter()}" value="#{letter}" styleClass="#{letter == searchController.selectedLetter ? 'selected_letter':''}">
+                        <h:commandLink value="#{letter}" styleClass="#{letter == searchController.selectedLetter ? 'selected_letter':''}">
 
                              <f:param name="letter" value="#{letter}" />
+                            <f:ajax onevent="showProgress" event="click" render=":goodsList @form :lettersForm :pages1 :pages2 :goodsCount" listener="#{searchController.fillGoodsByLetter()}"/>
 
                         </h:commandLink>
 
-
-
-
                     </ui:repeat>
-                </h:form>
+                </h:form>                                             
 
             </div>
 
