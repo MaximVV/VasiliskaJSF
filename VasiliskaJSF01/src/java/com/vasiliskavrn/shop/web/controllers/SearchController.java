@@ -76,12 +76,12 @@ public class SearchController implements Serializable {
         
          fillGoodsAll();
         
-        ResourceBundle bundle = ResourceBundle.getBundle("com.vasiliskavrn.shop.web.nls.messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
-        searchList.put(bundle.getString("for_all"), SearchType.FOR_ALL);
-        searchList.put(bundle.getString("for_boy"), SearchType.FOR_BOY);
-        searchList.put(bundle.getString("for_girl"), SearchType.FOR_GIRL);
-        searchList.put(bundle.getString("for_man"), SearchType.FOR_MAN);
-        searchList.put(bundle.getString("for_women"), SearchType.FOR_WOMEN);
+//        ResourceBundle bundle = ResourceBundle.getBundle("com.vasiliskavrn.shop.web.nls.messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
+//        searchList.put(bundle.getString("for_all"), SearchType.FOR_ALL);
+//        searchList.put(bundle.getString("for_boy"), SearchType.FOR_BOY);
+//        searchList.put(bundle.getString("for_girl"), SearchType.FOR_GIRL);
+//        searchList.put(bundle.getString("for_man"), SearchType.FOR_MAN);
+//        searchList.put(bundle.getString("for_women"), SearchType.FOR_WOMEN);
         
     }
 
