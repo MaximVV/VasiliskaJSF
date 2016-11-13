@@ -6,8 +6,20 @@
     <h:head>
         <title>#{msg.welcome_title}</title>
         <h:outputStylesheet library="css" name="style_index.css"  />
+        <h:outputScript library="js" name="library.js" target="head"/>
     </h:head>
     <h:body>
+        
+         <noscript>
+            <h4><p>Включите JavaScript в вашем браузере, чтобы работать с нашим приложением</p></h4>
+
+
+            <style type="text/css">
+                .main { display:none; }
+                p { text-align: center; }
+            </style>
+
+        </noscript>
 
         <div class="main">
 
@@ -15,19 +27,37 @@
                 <p class="title"><h:graphicImage library="images" name="cat.png" /></p>
                 <p class="title">#{msg.index_title}</p>
             </div>
-
+            
             <div class="login_div">
-                <p class="title">#{msg.input_info}</p>
+            <h:form styleClass="login_form">
 
-                <h:form styleClass="login_form">
-                    #{msg.input_name} <h:inputText id="username" value="#{user.username}" required="true" requiredMessage="#{msg.login_required}">
-                        <f:validator validatorId="com.vasiliskavrn.shop.web.validators.LoginValidator"/>
-                    </h:inputText>
-                    <h:commandButton action="pages/goods?faces-redirect=true" value="Войти"/>
-                    <p><h:message for="username" styleClass="error"/></p>
-                </h:form>
+                    <table align="left" width="350">
+                        <tr><td align="left"><span style="color:red;">*</span> #{msg.input_name}
+		            </td>
+                            
+	                    <td><h:inputText id="username" value="#{user.username}" required="true" requiredMessage="#{msg.login_required}">
+                                    <f:validator validatorId="com.vasiliskavrn.shop.web.validators.LoginValidator"/>
+                                    <f:ajax event="keyup" render="loginError"/>
+                                </h:inputText>
+			    </td>
+                            
+                            <td>
+                                <h:commandButton action="pages/goods?faces-redirect=true" value="#{msg.entry}" styleClass="login_button" onclick="return checkValue(this.form, '#{msg.login_required}');">
 
+                                </h:commandButton>
+                            </td>
+						</tr> 
+                        <tr> <td colspan="3">
+                                <p><h:message id="loginError" for="username" styleClass="error"/></p>
+                            </td>
+			</tr>
+                    </table>
+            
+            
+            </h:form>          
+            
             </div>
+            
 
             <div class="footer">
                 #{msg.author_info}

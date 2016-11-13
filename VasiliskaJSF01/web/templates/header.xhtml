@@ -5,6 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
 
       xmlns:f="http://java.sun.com/jsf/core">
+    
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet library="css" name="style_main.css"  />
@@ -42,7 +43,7 @@
             </div>
             
             <div class="letters">
-                <h:form>
+                <h:form id="lettersForm">
                     <ui:repeat value="#{searchController.russianLetters}" var="letter">
 
             
