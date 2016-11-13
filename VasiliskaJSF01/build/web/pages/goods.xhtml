@@ -13,8 +13,9 @@
         <ui:composition template="/templates/shop_template.xhtml">
 
             
-            <ui:define name="books_count">
-                #{msg.goods_count} #{searchController.totalGoodsCount}
+            <ui:define name="goods_count">
+                
+                 <h:outputText value="#{msg.goods_count} #{searchController.totalGoodsCount}" id="goodsCount"></h:outputText> 
             </ui:define>           
             
 
@@ -25,7 +26,7 @@
             <ui:define name="content">
 
 
-                <h:dataTable value="#{searchController.currentGoodsList}" var="b" cellspacing="10px" columnClasses="col1, col2, col3"> 
+                <h:dataTable id="goodsList" value="#{searchController.currentGoodsList}" var="b" cellspacing="10px" columnClasses="col1, col2, col3"> 
                                     
                     <h:column>
                         <h:outputLink value="" target="_blank">
