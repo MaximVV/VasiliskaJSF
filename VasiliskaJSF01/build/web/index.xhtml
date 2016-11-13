@@ -36,6 +36,7 @@
 		            </td>
                             
 	                    <td><h:inputText id="username" value="#{user.username}" required="true" requiredMessage="#{msg.login_required}">
+                                    
                                     <f:validator validatorId="com.vasiliskavrn.shop.web.validators.LoginValidator"/>
                                     <f:ajax event="keyup" render="loginError"/>
                                 </h:inputText>

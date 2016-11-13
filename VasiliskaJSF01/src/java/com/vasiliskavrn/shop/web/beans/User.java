@@ -1,4 +1,4 @@
-package ru.javabegin.training.web.beans;
+package com.vasiliskavrn.shop.web.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -7,7 +7,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class User {
 
-    private String username;
+    private String username = "Maksim";
     
     public User() {
     }
