@@ -182,7 +182,9 @@ public class SearchController implements Serializable {
 
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         
-        submitValues(' ', 1, Integer.valueOf(params.get("cloth_id")), false);
+        selectedClothId = Integer.valueOf(params.get("cloth_id"));
+        
+        submitValues(' ', 1,selectedClothId , false);
         
 //        Integer cloth_id = Integer.valueOf(params.get("cloth_id"));
         
